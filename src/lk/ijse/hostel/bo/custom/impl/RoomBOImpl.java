@@ -1,130 +1,56 @@
-package lk.ijse.hostel.bo.custom.impl;
+package lk.ijse.d24.bo.custom.impl;
 
-import lk.ijse.hostel.bo.custom.RoomBO;
-import lk.ijse.hostel.dao.DAOFactory;
-import lk.ijse.hostel.dao.custom.RoomDAO;
-import lk.ijse.hostel.dao.custom.StudentDAO;
-import lk.ijse.hostel.dto.RoomDTO;
-import lk.ijse.hostel.dto.StudentDTO;
-import lk.ijse.hostel.entity.Room;
-import lk.ijse.hostel.entity.Student;
-import lk.ijse.hostel.util.SessionFactoryConfig;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import lk.ijse.d24.bo.custom.RoomBO;
+import lk.ijse.d24.dao.DaoFactory;
+import lk.ijse.d24.dao.DaoType;
+import lk.ijse.d24.dao.custom.RoomDAO;
+import lk.ijse.d24.dao.custom.StudentDAO;
+import lk.ijse.d24.dto.RoomDTO;
+import lk.ijse.d24.dto.StudentDTO;
+import lk.ijse.d24.entity.Room;
+import lk.ijse.d24.entity.Student;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class RoomBOImpl implements RoomBO {
+public class RoomBOimpl implements RoomBO {
 
-    private Session session;
-    RoomDAO roomDAO=(RoomDAO) DAOFactory.getDaoFactory ().getDAO (DAOFactory.DAOTypes.ROOM);
-    @Override
-    public List<RoomDTO> loadAll() {
-        session=SessionFactoryConfig.getInstance ().getSession ();
-        Transaction transaction=session.beginTransaction ();
-
-        roomDAO.setSession (session);
-        List<Room>list= roomDAO.loadAll ();
-        List<RoomDTO>roomList= new ArrayList<> ();
-
-        for (Room room:list) {
-            roomList.add(
-                    new RoomDTO (
-                            room.getRoomId (),
-                            room.getType (),
-                            room.getKeyMoney (),
-                            room.getQty ()
-                    )
-            );
-        }
-
-        return roomList;
-
-    }
+    RoomDAO roomDAO = (RoomDAO) DaoFactory.getInstance().getDAO(DaoType.ROOM);
 
     @Override
-    public boolean saveRoom(RoomDTO dto) {
-        session= SessionFactoryConfig.getInstance ().getSession ();
-        Transaction transaction=session.beginTransaction ();
+    public RoomDTO getRoom(String id) {
 
-        try{
-            roomDAO.setSession (session);
-            roomDAO.save (new Room (
-                    dto.getRoomID (),
-                    dto.getType (),
-                    dto.getKeyMoney (),
-                    dto.getQty ()
-            ));
-            transaction.commit ();
-            session.close ();
-            return true;
-
-        }catch (Exception e){
-            transaction.rollback ();
-        }
-        return false;
-    }
-
-    @Override
-    public boolean updateRoom(RoomDTO dto) {
-        session=SessionFactoryConfig.getInstance ().getSession ();
-        Transaction transaction=session.beginTransaction ();
-
-        try {
-            roomDAO.setSession (session);
-            roomDAO.update (new Room (
-                    dto.getRoomID (),
-                    dto.getType (),
-                    dto.getKeyMoney (),
-                    dto.getQty ()
-                    ));
-
-            transaction.commit ();
-            session.close ();
-            return true;
-        }catch (Exception e){
-            transaction.rollback ();;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean deleteRoom(RoomDTO dto) {
-        session=SessionFactoryConfig.getInstance ().getSession ();
-        Transaction transaction=session.beginTransaction ();
-
-        try{
-            roomDAO.setSession (session);
-            roomDAO.delete (new Room (
-                    dto.getRoomID (),
-                    dto.getType (),
-                    dto.getKeyMoney (),
-                    dto.getQty ()
-            ));
-            transaction.commit ();
-            session.close ();
-            return true;
-        }catch (Exception e){
-            transaction.rollback ();
-        }
-        return false;
-    }
-
-    @Override
-    public RoomDTO getRoom(String id) throws Exception {
-        session=SessionFactoryConfig.getInstance ().getSession ();
-        Transaction transaction=session.beginTransaction ();
-
-        roomDAO.setSession (session);
-        Room r=roomDAO.getObject (id);
-        session.close ();
-        return new RoomDTO (
-                r.getRoomId (),
-                r.getType (),
-                r.getKeyMoney (),
-                r.getQty ()
+        Room room = roomDAO.search(id);
+        return new RoomDTO(
+                room.getId(),
+                room.getRoomType(),
+                room.getKeyMoney(),
+                room.getQty()
         );
     }
 
+    @Override
+    public boolean addRoom(RoomDTO roomDTO) {
+       return roomDAO.add(new Room(
+               roomDTO.getId(),
+               roomDTO.getRoomType(),
+               roomDTO.getKeyMoney(),
+               roomDTO.getQty()
+        ));
+
+    }
+
+    @Override
+    public boolean updateRoom(RoomDTO roomDTO) {
+       return roomDAO.update(new Room(
+               roomDTO.getId(),
+               roomDTO.getRoomType(),
+               roomDTO.getKeyMoney(),
+               roomDTO.getQty()
+       ));
+
+    }
+
+    @Override
+    public boolean deleteRoom(String id) {
+       return roomDAO.delete(id);
+    }
 }

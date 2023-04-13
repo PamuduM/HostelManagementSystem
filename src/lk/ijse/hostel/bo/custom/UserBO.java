@@ -1,6 +1,6 @@
-package lk.ijse.hostel.bo.custom;
+package lk.ijse.d24.bo.custom;
 
-import lk.ijse.hostel.bo.SuperBO;
+import lk.ijse.d24.bo.SuperBO;
 
-public interface UserBO  extends SuperBO {
+public interface  UserBO extends SuperBO {
 }

@@ -1,17 +1,12 @@
-package lk.ijse.hostel.bo.custom;
+package lk.ijse.d24.bo.custom;
 
-import javafx.collections.ObservableList;
-import lk.ijse.hostel.bo.SuperBO;
-import lk.ijse.hostel.dto.StudentDTO;
-
-import java.util.List;
+import lk.ijse.d24.bo.SuperBO;
+import lk.ijse.d24.dto.StudentDTO;
 
 public interface StudentBO extends SuperBO {
-    List<StudentDTO> loadAll();
-    boolean saveStudent(StudentDTO studentDTO);
-    boolean updateStudent(StudentDTO studentDTO);
-    boolean deleteStudent(StudentDTO studentDTO);
-    StudentDTO getStudent(String id) throws Exception;
-
+    StudentDTO getStudent (String id);
+    public boolean addStudent(StudentDTO studentDTO);
+    public boolean updateStudent(StudentDTO studentDTO);
+    public  boolean deleteStudent(String id);
 
 }

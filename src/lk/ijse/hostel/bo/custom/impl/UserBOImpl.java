@@ -1,6 +1,6 @@
-package lk.ijse.hostel.bo.custom.impl;
+package lk.ijse.d24.bo.custom.impl;
 
-import lk.ijse.hostel.bo.custom.UserBO;
+import lk.ijse.d24.bo.custom.UserBO;
 
-public class UserBOImpl implements UserBO {
+public class UserBOimpl implements UserBO {
 }

@@ -1,15 +1,12 @@
-package lk.ijse.hostel.bo.custom;
+package lk.ijse.d24.bo.custom;
 
-import lk.ijse.hostel.bo.SuperBO;
-import lk.ijse.hostel.dto.RoomDTO;
-import lk.ijse.hostel.dto.StudentDTO;
-
-import java.util.List;
+import lk.ijse.d24.bo.SuperBO;
+import lk.ijse.d24.dto.RoomDTO;
 
 public interface RoomBO extends SuperBO {
-    List<RoomDTO> loadAll();
-    boolean saveRoom(RoomDTO dto);
-    boolean updateRoom(RoomDTO dto);
-    boolean deleteRoom(RoomDTO dto);
-    RoomDTO getRoom(String id) throws Exception;
+
+    RoomDTO getRoom(String id);
+    public  boolean addRoom(RoomDTO roomDTO);
+    public boolean updateRoom(RoomDTO roomDTO);
+    public boolean deleteRoom(String id);
 }

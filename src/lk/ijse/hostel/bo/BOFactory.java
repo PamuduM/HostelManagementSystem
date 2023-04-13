@@ -1,40 +1,37 @@
-package lk.ijse.hostel.bo;
+package lk.ijse.d24.bo;
 
-import lk.ijse.hostel.bo.custom.impl.RevervationBOImpl;
-import lk.ijse.hostel.bo.custom.impl.RoomBOImpl;
-import lk.ijse.hostel.bo.custom.impl.StudentBOImpl;
-import lk.ijse.hostel.bo.custom.impl.UserBOImpl;
+import lk.ijse.d24.bo.custom.impl.ReservationBOimpl;
+import lk.ijse.d24.bo.custom.impl.RoomBOimpl;
+import lk.ijse.d24.bo.custom.impl.StudentBOimpl;
+import lk.ijse.d24.bo.custom.impl.UserBOimpl;
 
-public class BOFactory {
+public class BoFactory {
+    private static BoFactory boFactory;
 
-    public static BOFactory boFactory;
-    public BOFactory() {
+    private BoFactory() {
     }
 
-    public BOFactory  getBoFactory(){
-        if (boFactory==null){
-            boFactory=new BOFactory ();
-        }
-        return boFactory;
+    public static BoFactory getInstance() {
+        return (boFactory == null)
+                ? boFactory = new BoFactory()
+                : boFactory;
     }
 
-    public enum BOTypes{
-        STUDENT,ROOM,USER,RESERVATION
-    }
-
-    public static SuperBO getBO(BOTypes boTypes){
-        switch (boTypes){
-            case STUDENT:
-                return new StudentBOImpl ();
-            case ROOM:
-                return new RoomBOImpl ();
-            case RESERVATION:
-                return new RevervationBOImpl ();
+    public SuperBO getBO(BoType boType){
+        switch (boType) {
             case USER:
-                return new UserBOImpl ();
+                return new UserBOimpl();
+            case STUDENT:
+                return new StudentBOimpl();
+            case ROOM:
+                return new RoomBOimpl();
+            case RESERVATION:
+                return new ReservationBOimpl();
             default:
+                System.out.println("Class not Found");
                 return null;
+
+
         }
     }
-
 }

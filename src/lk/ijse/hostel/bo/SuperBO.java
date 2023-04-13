@@ -1,4 +1,4 @@
-package lk.ijse.hostel.bo;
+package lk.ijse.d24.bo;
 
 public interface SuperBO {
 }

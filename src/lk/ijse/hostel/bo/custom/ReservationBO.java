@@ -1,21 +1,13 @@
-package lk.ijse.hostel.bo.custom;
+package lk.ijse.d24.bo.custom;
 
-import lk.ijse.hostel.bo.SuperBO;
-import lk.ijse.hostel.dto.ReservationDTO;
-import lk.ijse.hostel.dto.RoomDTO;
-import lk.ijse.hostel.dto.StudentDTO;
-
-import java.util.List;
+import lk.ijse.d24.bo.SuperBO;
+import lk.ijse.d24.dto.ReservationDTO;
 
 public interface ReservationBO extends SuperBO {
-    List<String> getStudentIds();
-    List<String> getRoomIds();
-     StudentDTO getStudent(String id);
-    RoomDTO getRoom(String id);
-    boolean updateRoom(RoomDTO dto);
-    List<ReservationDTO> loadAllRes();
-    boolean saveReservation(ReservationDTO dto);
-    boolean updateReservation(ReservationDTO dto);
-    boolean deleteReservation(ReservationDTO dto);
+
+    ReservationDTO getReservation(String id);
+    public boolean addReservation(ReservationDTO reservationDTO);
+    public boolean updateReservation(ReservationDTO reservationDTO);
+    public boolean deleteReservation(String id);
 
 }
