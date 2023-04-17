@@ -1,44 +1,39 @@
-package lk.ijse.hostel.dao;
+package lk.ijse.d24.dao;
 
-import lk.ijse.hostel.bo.BOFactory;
-import lk.ijse.hostel.bo.SuperBO;
-import lk.ijse.hostel.bo.custom.impl.RevervationBOImpl;
-import lk.ijse.hostel.bo.custom.impl.RoomBOImpl;
-import lk.ijse.hostel.bo.custom.impl.StudentBOImpl;
-import lk.ijse.hostel.bo.custom.impl.UserBOImpl;
-import lk.ijse.hostel.dao.custom.impl.RevervationDAOImpl;
-import lk.ijse.hostel.dao.custom.impl.RoomDAOImpl;
-import lk.ijse.hostel.dao.custom.impl.StudentDAOImpl;
-import lk.ijse.hostel.dao.custom.impl.UserDAOImpl;
+import lk.ijse.d24.dao.custom.impl.ReservationDAOimpl;
+import lk.ijse.d24.dao.custom.impl.RoomDAOimpl;
+import lk.ijse.d24.dao.custom.impl.StudentDAOimpl;
+import lk.ijse.d24.dao.custom.impl.UserDAOimpl;
 
-public class DAOFactory {
-    public static DAOFactory daoFactory;
+public class DaoFactory {
+    private static DaoFactory daoFactory;
 
-    public DAOFactory() {
+    private DaoFactory() {
+
     }
 
-    public static DAOFactory getDaoFactory(){
-        if (daoFactory==null){
-            daoFactory=new DAOFactory ();
-        }
-        return daoFactory;
+    public static DaoFactory getInstance() {
+        return (daoFactory == null)
+                ? daoFactory = new DaoFactory()
+                : daoFactory;
+
     }
 
-    public enum DAOTypes{
-        STUDENT,ROOM,USER,RESERVATION
-    }
-    public SuperDAO getDAO(DAOTypes daoTypes){
-        switch (daoTypes){
-            case STUDENT:
-                return new StudentDAOImpl ();
-            case ROOM:
-                return new RoomDAOImpl ();
-            case RESERVATION:
-                return new RevervationDAOImpl ();
+    public SuperDAO getDAO(DaoType daoType) {
+        switch (daoType) {
             case USER:
-                return new UserDAOImpl ();
+                return new UserDAOimpl();
+            case STUDENT:
+                return new StudentDAOimpl();
+            case ROOM:
+                return new RoomDAOimpl();
+            case RESERVATION:
+                return new ReservationDAOimpl();
             default:
+                System.out.println("NO DAOimpl");
                 return null;
+
+
         }
     }
 

@@ -1,7 +1,4 @@
-package lk.ijse.hostel.dao;
-
-import org.hibernate.Session;
+package lk.ijse.d24.dao;
 
 public interface SuperDAO {
-    void setSession(Session session);
 }

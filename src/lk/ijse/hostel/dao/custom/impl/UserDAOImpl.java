@@ -1,42 +1,26 @@
-package lk.ijse.hostel.dao.custom.impl;
+package lk.ijse.d24.dao.custom.impl;
 
-import javafx.collections.ObservableList;
-import lk.ijse.hostel.dao.custom.UserDAO;
-import lk.ijse.hostel.entity.User;
-import org.hibernate.Session;
+import lk.ijse.d24.dao.custom.UserDAO;
+import lk.ijse.d24.entity.User;
 
-import java.util.List;
-
-public class UserDAOImpl implements UserDAO {
-
-    private Session session;
+public class UserDAOimpl implements UserDAO {
     @Override
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
-    @Override
-    public List<User> loadAll() {
+    public User search(String id) {
         return null;
     }
 
     @Override
-    public String save(User user) {
-        return null;
+    public boolean add(User entity) {
+        return false;
     }
 
     @Override
-    public void update(User user) {
-
+    public boolean update(User entity) {
+        return false;
     }
 
     @Override
-    public void delete(User user) {
-
-    }
-
-    @Override
-    public User getObject(String id) throws Exception {
-        return null;
+    public boolean delete(String id) {
+        return false;
     }
 }

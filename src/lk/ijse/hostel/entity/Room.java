@@ -1,73 +1,39 @@
-package lk.ijse.hostel.entity;
+package lk.ijse.d24.entity;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "Room")
+
 public class Room {
     @Id
-    @Column(name = "roomID",length = 25)
-    private String roomId;
-    @Column(name = "type")
-    private String type;
-
-    public Room(String roomId, String type, String keyMoney, int qty) {
-        this.roomId = roomId;
-        this.type = type;
-        this.keyMoney = keyMoney;
-        this.qty = qty;
-    }
-
-    public Room() {
-    }
-
-    @Override
-    public String toString() {
-        return "Room{" +
-                "roomId='" + roomId + '\'' +
-                ", type='" + type + '\'' +
-                ", keyMoney='" + keyMoney + '\'' +
-                ", qty=" + qty +
-                '}';
-    }
-
-    @Column(name = "keyMoney")
+    @Column(name = "r_id", length = 50, nullable = false)
+    private String id;
+    @Column(name = "r_type", length = 50)
+    private String roomType;
+    @Column(name = "r_keyMoney", length = 50)
     private String keyMoney;
-    @Column(name = "qty")
+    @Column(name = "r_qty", length = 50)
     private int qty;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "room")
-    List<Reservation> reservationList;
 
-    public String getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getKeyMoney() {
-        return keyMoney;
-    }
-
-    public void setKeyMoney(String keyMoney) {
+    public Room(String id, String roomType, String keyMoney, int qty) {
+        this.id = id;
+        this.roomType = roomType;
         this.keyMoney = keyMoney;
-    }
-
-    public int getQty() {
-        return qty;
-    }
-
-    public void setQty(int qty) {
         this.qty = qty;
     }
+
+    @OneToMany(mappedBy =  "room")
+    private List<Reservation> reservations = new ArrayList<>();
 }

@@ -1,56 +1,61 @@
-package lk.ijse.hostel.dao.custom.impl;
+package lk.ijse.d24.dao.custom.impl;
 
-import javafx.collections.ObservableList;
-import lk.ijse.hostel.dao.custom.RoomDAO;
-import lk.ijse.hostel.entity.Room;
-import lk.ijse.hostel.entity.Student;
+import lk.ijse.d24.dao.custom.RoomDAO;
+import lk.ijse.d24.entity.Room;
+import lk.ijse.d24.util.SessionFactoryConfiguration;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
+import org.hibernate.Transaction;
 
-import java.util.List;
-
-public class RoomDAOImpl implements RoomDAO {
-
-    private Session session;
+public class RoomDAOimpl implements RoomDAO {
     @Override
-    public void setSession(Session session) {
-        this.session=session;
-    }
+    public Room search(String id) {
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
 
-    @Override
-    public List<Room> loadAll() {
-        String sqlQuery="FROM Room ";
-        Query query = session.createQuery(sqlQuery);
-        List list =query.list ();
+        Room room = session.get(Room.class,id);
+
+        transaction.commit();
         session.close();
-        return list;
+        return room;
     }
 
     @Override
-    public String save(Room room) {
-       return (String) session.save (room);
-    }
+    public boolean add(Room entity) {
 
-    @Override
-    public void update(Room room) {
-        session.update (room);
-    }
-    @Override
-    public void delete(Room room) {
-        session.delete (room);
-    }
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
 
-    @Override
-    public Room getObject(String id) throws Exception {
-        return session.get(Room.class,id);
-    }
+       session.save(entity);
 
-    @Override
-    public List<String> roomIds() {
-        String hql = "SELECT id from Room ";
-        Query<String> query=session.createQuery (hql);
-        List<String> results = query.list();
+        transaction.commit();
         session.close();
-        return results;
+        return true;
+
+    }
+
+    @Override
+    public boolean update(Room entity) {
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.update(entity);
+
+        transaction.commit();
+        session.close();
+        return true;
+    }
+
+    @Override
+    public boolean delete(String id) {
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Room entity = session.load(Room.class,id);
+
+        session.delete(entity);
+
+        transaction.commit();
+        session.close();
+        return true;
     }
 }

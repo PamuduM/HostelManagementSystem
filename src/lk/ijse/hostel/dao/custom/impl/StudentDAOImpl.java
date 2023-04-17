@@ -1,57 +1,66 @@
-package lk.ijse.hostel.dao.custom.impl;
+package lk.ijse.d24.dao.custom.impl;
 
-import javafx.collections.ObservableList;
-import lk.ijse.hostel.dao.custom.StudentDAO;
-import lk.ijse.hostel.entity.Student;
+import lk.ijse.d24.dao.custom.StudentDAO;
+import lk.ijse.d24.entity.Student;
+import lk.ijse.d24.util.SessionFactoryConfiguration;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
+import org.hibernate.Transaction;
+import org.hibernate.engine.spi.SessionDelegatorBaseImpl;
 
-import java.util.List;
-
-public class StudentDAOImpl implements StudentDAO {
-
-    private Session session;
+public class StudentDAOimpl implements StudentDAO {
     @Override
-    public void setSession(Session session) {
-        this.session=session;
-    }
+    public Student search(String id) {
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
 
-    @Override
-    public List<Student> loadAll() {
-        String sqlQuery="FROM Student ";
-        Query query = session.createQuery(sqlQuery);
-        List list =query.list ();
+        Student student = session.get(Student.class,id);
+
+        transaction.commit();;
         session.close();
-        return list;
+        return student;
     }
 
     @Override
-    public String save(Student student) {
-        return (String) session.save (student);
-    }
+    public boolean add(Student entity) {
 
-    @Override
-    public void update(Student student) {
-        session.update (student);
-    }
 
-    @Override
-    public void delete(Student student) {
-        session.delete (student);
-    }
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
 
-    @Override
-    public Student getObject(String id) throws Exception {
-        return session.get(Student.class,id);
-    }
+        session.save(entity);
 
-    @Override
-    public List<String> getStIds() {
-        String hql = "SELECT id from Student ";
-        Query<String> query=session.createQuery (hql);
-        List<String> results = query.list();
+        transaction.commit();;
         session.close();
-        return results;
+        return true;
+    }
 
+    @Override
+    public boolean update(Student entity) {
+
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.update(entity);
+
+        transaction.commit();;
+        session.close();
+
+        return true;
+    }
+
+    @Override
+    public boolean delete(String id) {
+
+        Session session = SessionFactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+       Student entity = session.load(Student.class,id);
+
+       session.delete(entity);
+
+        transaction.commit();;
+        session.close();
+
+        return true;
     }
 }

@@ -1,62 +1,23 @@
-package lk.ijse.hostel.dto;
+package lk.ijse.d24.dto;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import java.sql.Date;
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
+
 
 public class ReservationDTO {
 
-    private String resID;
-
-    public ReservationDTO(String resID, Date date, StudentDTO studentDTO, RoomDTO roomDTO, String status) {
-        this.resID = resID;
-        this.date = date;
-        this.setStudentDTO (studentDTO);
-        this.setRoomDTO (roomDTO);
-        this.status = status;
-    }
-
+    private String id;
     private Date date;
-    private StudentDTO studentDTO;
-    private RoomDTO roomDTO;
     private String status;
+    private String reservationStudentId;
+    private String reservationRoomId;
 
-    public String getResID() {
-        return resID;
-    }
-
-    public void setResID(String resID) {
-        this.resID = resID;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public StudentDTO getStudentDTO() {
-        return studentDTO;
-    }
-
-    public void setStudentDTO(StudentDTO studentDTO) {
-        this.studentDTO = studentDTO;
-    }
-
-    public RoomDTO getRoomDTO() {
-        return roomDTO;
-    }
-
-    public void setRoomDTO(RoomDTO roomDTO) {
-        this.roomDTO = roomDTO;
-    }
 }

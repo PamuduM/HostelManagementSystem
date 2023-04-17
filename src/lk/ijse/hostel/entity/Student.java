@@ -1,100 +1,45 @@
-package lk.ijse.hostel.entity;
+package lk.ijse.d24.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "Student")
 public class Student {
     @Id
-    @Column(name = "stID",length = 25)
-    private String stId;
-    @Column(name = "stName")
-    private String stName;
-    @Column(name = "address")
+    @Column(name = "s_id", length = 50, nullable = false)
+    private String id;
+    @Column(name = "s_name", length = 50)
+    private String name;
+    @Column(name = "s_contact", length = 50)
+    private int contact;
+    @Column(name = "s_address", length = 50)
     private String address;
-
-    public Student() {
-    }
-
-    private String contact;
-
-    public Student(String stId, String stName, String address, String contact, String dob, String gender) {
-        this.setStId (stId);
-        this.setStName (stName);
-        this.setAddress (address);
-        this.setContact (contact);
-        this.setDob (dob);
-        this.setGender (gender);
-    }
-
-    @Column(name = "dob")
-    private String dob;
-    @Column(name = "gender")
+    @Column(name = "s_dob", length = 50)
+    private Date dob;
+    @Column(name = "s_gender", length = 50)
     private String gender;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "student")
-    private List<Reservation> reservationList;
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Reservation> reservations = new ArrayList<>();
 
-
-
-    public String getStId() {
-        return stId;
-    }
-
-    public void setStId(String stId) {
-        this.stId = stId;
-    }
-
-    public String getStName() {
-        return stName;
-    }
-
-    public void setStName(String stName) {
-        this.stName = stName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
+    public Student(String id, String name, String address, int contact, Date dob, String gender) {
+        this.id = id;
+        this.name = name;
         this.contact = contact;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "stId='" + stId + '\'' +
-                ", stName='" + stName + '\'' +
-                ", address='" + address + '\'' +
-                ", contact='" + contact + '\'' +
-                ", dob='" + dob + '\'' +
-                ", gender='" + gender + '\'' +
-                '}';
-    }
-
-    public void setDob(String dob) {
+        this.address = address;
         this.dob = dob;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
         this.gender = gender;
     }
+
+
 }

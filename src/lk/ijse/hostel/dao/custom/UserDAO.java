@@ -1,8 +1,7 @@
-package lk.ijse.hostel.dao.custom;
+package lk.ijse.d24.dao.custom;
 
-import lk.ijse.hostel.dao.CrudDAO;
-import lk.ijse.hostel.entity.Reservation;
-import lk.ijse.hostel.entity.User;
+import lk.ijse.d24.dao.CrudDAO;
+import lk.ijse.d24.entity.User;
 
 public interface UserDAO extends CrudDAO<User> {
 }

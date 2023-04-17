@@ -1,78 +1,38 @@
-package lk.ijse.hostel.entity;
+package lk.ijse.d24.entity;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
-@Table(name = "reservation")
+
 public class Reservation {
-    @Id
-    @Column(name = "resId",length = 25)
-    private String resId;
-
-    public Reservation(String resId, Date date, Student student, Room room, String status) {
-        this.resId = resId;
-        this.setDate (date);
-        this.student = student;
-        this.room = room;
-        this.status = status;
-    }
-
-    public Reservation() {
-    }
-    @Column(name = "date")
+@Id
+@Column(name = "res_id", length = 50, nullable = false)
+    private String id;
+    @Column(name = "res_date", length = 50)
     private Date date;
-
+    @Column(name = "res_status", length = 50)
+    private String status;
+    @Column(name = "res_student_id", length = 50)
+//    private String reservationStudentId;
+//    @Column(name = "res_room_id", length = 50)
+//    private String reservationRoomId;
 
     @ManyToOne
-    @JoinColumn(name = "stID")
-    private Student student;
-
-    @ManyToOne
-    @JoinColumn(name ="roomID")
+    @JoinColumn(name = "s_id",referencedColumnName = "s_id",nullable = false)
     private Room room;
 
-    @Column(name = "status")
-    private String status;
-
-    public String getResId() {
-        return resId;
-    }
-
-    public void setResId(String resId) {
-        this.resId = resId;
-    }
+    @JoinColumn(name = "r_id" , referencedColumnName = "r_id",nullable = false)
+    @ManyToOne
+    private Student student;
 
 
-    public Student getStudent() {
-        return student;
-    }
 
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 }
